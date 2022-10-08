@@ -1,0 +1,50 @@
+CAPI=2:
+      #Vendor:Library:Name:Version
+name: "allexoll:VexRiscv:Murax:0000001" # TODO: change VLNV
+description: Fusesoc Template       # TODO: change description
+
+filesets:
+  ## uncomment if you want to have some automated bitstream programing
+  # proginfo:
+  #  files: [proginfo/proginfo.py : {file_type : user, copyto : proginfo.py}]
+
+  artya7-35t:
+    files:
+      - constraints/Murax.xdc: { file_type: xdc }
+      - Murax.v: {file_type: verilogSource}
+      # - hardware/synthesis/common/RamXilinx.v: {file_type: verilogSource}
+      # - openocd/digilent-hs1.cfg: { file_type: user }
+      # - openocd/xilinx-xc7.cfg: { file_type: user }
+      # - proginfo/artix7.txt: { file_type: user }
+
+targets:
+  artya7-35t-oss:
+    default_tool : symbiflow
+    description: Digilent ArtyA7-35T Board using Symbiflow OSS Toolchain
+    filesets : [artya7-35t] # [artya7-35t, proginfo]
+    hooks:
+      #post_run: [artya7-35t-oss]
+    tools:
+      symbiflow:            # TODO: Change part
+        part : xc7a35t
+        package: csg324-1   
+        vendor: xilinx
+        pnr: vtr
+    toplevel : Murax   # TODO: Change toplevel ref name
+
+  artya7-35t:
+    default_tool : vivado
+    description: Digilent ArtyA7-35T Board
+    filesets : [artya7-35t] # [artya7-35t, proginfo]
+    hooks:
+      #post_run: [artya7-35t]
+    tools:
+      vivado:
+        part : xc7a35ticsg324-1L  # TODO: Change part
+    toplevel : Murax                # TODO: Change toplevel ref name
+
+#scripts:
+#  artya7-35t-oss:
+#    cmd : [python3, proginfo.py, artya7-35t-oss]
+#  artya7-35t:
+#    cmd : [python3, proginfo.py, artya7-35t]

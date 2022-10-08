@@ -1,0 +1,1 @@
+../../../openocd_riscv/src/openocd -f ../../../openocd_riscv/tcl/interface/jtag_tcp.cfg  -f soc_init_jtag_tcp.cfg -l log.txt
